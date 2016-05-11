@@ -6,14 +6,20 @@
 	<title>Complaints</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/skeleton.css">
-	<link rel="stylesheet" href="css/pikaday-skeleton.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="container">
+	<div class="row" id="header">
+		<div class="six columns">
+			<h1>D3 Fun</h1>
+		</div>
+		<div class="six columns" id="nav">
+			<a href="./index.html">Table</a>
+			<a href="./graph.html">Graph</a>
+		</div>
 	</div>
-	<div id="complaints">
-		<h3 id="page-title">Complaints</h3>
+	<div class="eleven columns" id="container">
+		<h3 id="page-title">Table</h3>
 		<div class="filter">
 			<form>
 			  <div class="row">
@@ -95,5 +101,5 @@
 	<script type="text/javascript" src="js/d3.js"></script>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/moment.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/table.js"></script>
 </html>

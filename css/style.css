@@ -1,3 +1,25 @@
-#complaints {
+#container {
 	margin: 0 5% 0 5%;
 }
+
+#header {
+	margin: 0 5% 0 5%;
+}
+
+
+#nav a {
+	float: right;
+	text-align: right;
+	padding: 0 10px;
+}
+
+.arc text {
+  font: 1em sans-serif;
+  text-anchor: top;
+  /*display: none;*/
+}
+
+.arc path {
+  stroke: #fff;
+}
+
