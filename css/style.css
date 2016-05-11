@@ -1,3 +1,4 @@
+/*Global*/
 #container {
 	margin: 0 5% 0 5%;
 }
@@ -13,6 +14,7 @@
 	padding: 0 10px;
 }
 
+/*Pie Chart*/
 .arc text {
   font: 1em sans-serif;
   text-anchor: top;
@@ -23,3 +25,34 @@
   stroke: #fff;
 }
 
+.label {
+	font-weight: 400;
+	color: #000;
+	font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+/*Bar Graph*/
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: #1EAEDB;
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  /*float: right;*/
+}
