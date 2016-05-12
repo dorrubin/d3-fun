@@ -1,10 +1,10 @@
 // reference: https://bl.ocks.org/mbostock/3887235
 // reference: http://jsfiddle.net/8huvuoj9/1/
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
+var margin = {top: 80, right: 20, bottom: 80, left: 40},
 		animationLength = 10;
 		width = 960 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom,
+		height = 600 - margin.top - margin.bottom,
 		radius = Math.min(width, height) / 2 - animationLength;
 
 var color = d3.scale.category20();
@@ -26,12 +26,16 @@ var pie = d3.layout.pie()
 		.value(function(d) { return d.values; });
 
 var svg = d3.select("#container").append("svg")
-		.attr("width", width)
-		.attr("height", height)
+		.attr("width", "100%")
+		.attr("height", height + margin.top + margin.bottom)
 		.append("g")
-		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+		.attr("transform", "translate(" + width / 2 + "," + 380 +  ")");
 
-var something;
+var getAngle = function (d) {
+		return (180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90);
+};
+
+var pos = d3.svg.arc().innerRadius(radius + 2).outerRadius(radius + 2); 
 
 d3.csv("data/mini-complaints.csv", function(csv_data){
 	var total = 0;
@@ -72,19 +76,12 @@ d3.csv("data/mini-complaints.csv", function(csv_data){
 				});
 
 		g.append("text")
-				.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-				.attr("dy", ".35em")
+				.attr("transform", function(d) { 
+              return "translate(" + pos.centroid(d) + ") " +
+                      "rotate(" + getAngle(d) + ")"; })
+				.attr("dy", ".15em")
 				.classed("label", true)
+				.style("text-anchor", "start")
 				// .attr("visibility", "hidden")
-				// .text(function(d){ return d.data.key});
-				.text(function(d) {
-					if(d.data.values/total > 0.1)
-					{
-						return (d.data.key); 
-					}
-					else
-						return "";
-				});
-
-		product_data = nested_data;
+				.text(function(d){ return d.data.key});
 });
