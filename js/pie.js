@@ -50,9 +50,6 @@ d3.csv("data/mini-complaints.csv", function(csv_data){
 			.data(pie(nested_data))
 			.enter().append("g")
 			.attr("class", "arc");
-		
-		// g.append("a")
-		// 	.attr("xlink:href", function(d) {return "./index?id=" + d.data.key});
 
 		g.append("path")
 				.attr("d", arc)
@@ -60,10 +57,11 @@ d3.csv("data/mini-complaints.csv", function(csv_data){
 				.on("click", function(d) {
 						console.log("click: " + d.data.key);
 						window.location.href = "./index.html?product=" + d.data.key;
-				})				
+				})
 				.on("mouseenter", function(d) {
 						console.log(d.data.key);
 						d3.select(this)
+							.style("cursor", "pointer")
 							.attr("stroke","white")
 							.transition()
 							.duration(1000)
@@ -76,8 +74,8 @@ d3.csv("data/mini-complaints.csv", function(csv_data){
 				});
 
 		g.append("text")
-				.attr("transform", function(d) { 
-              return "translate(" + pos.centroid(d) + ") " +
+				.attr("transform", function(d) {
+          	return "translate(" + pos.centroid(d) + ") " +
                       "rotate(" + getAngle(d) + ")"; })
 				.attr("dy", ".15em")
 				.classed("label", true)

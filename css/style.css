@@ -49,10 +49,7 @@
   fill-opacity: .9;
 }
 
-.x.axis path {
-  display: none;
-}
-
-label {
-  /*float: right;*/
+.bar:hover {
+  fill: orangered ;
+  fill-opacity: .9;
 }

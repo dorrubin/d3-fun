@@ -52,12 +52,20 @@ d3.csv("data/mini-complaints.csv", function(csv_data) {
 			.attr("y", 6)
 			.attr("dy", ".71em")
 			.style("text-anchor", "end")
-			.text("Frequency");
+			.text("Count");
 
 	svg.selectAll(".bar")
 			.data(nested_data)
 		.enter().append("rect")
 			.attr("class", "bar")
+			.on("mouseenter", function(d) {
+						d3.select(this)
+							.style("cursor", "pointer");
+				})
+			.on("click", function(d) {
+					console.log("click: " + d.key);
+					window.location.href = "./index.html?product=" + d.key;
+				})
 			.attr("x", function(d) { return x(d.key); })
 			.attr("width", x.rangeBand())
 			.attr("y", function(d) { return y(d.values); })
