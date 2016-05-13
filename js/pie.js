@@ -35,7 +35,7 @@ var getAngle = function (d) {
 		return (180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90);
 };
 
-var pos = d3.svg.arc().innerRadius(radius + 2).outerRadius(radius + 2); 
+var pos = d3.svg.arc().innerRadius(radius + 2).outerRadius(radius + 2);
 
 d3.csv("data/mini-complaints.csv", function(csv_data){
 	var total = 0;
@@ -75,8 +75,8 @@ d3.csv("data/mini-complaints.csv", function(csv_data){
 
 		g.append("text")
 				.attr("transform", function(d) {
-          	return "translate(" + pos.centroid(d) + ") " +
-                      "rotate(" + getAngle(d) + ")"; })
+						return "translate(" + pos.centroid(d) + ") " +
+											"rotate(" + getAngle(d) + ")"; })
 				.attr("dy", ".15em")
 				.classed("label", true)
 				.style("text-anchor", "start")

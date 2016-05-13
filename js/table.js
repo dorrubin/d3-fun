@@ -1,19 +1,20 @@
 var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
 
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+		for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
+				if (sParameterName[0] === sParam) {
+						return sParameterName[1] === undefined ? true : sParameterName[1];
+				}
+		}
 };
 
 var product_params = getUrlParameter('product');
+var state_params = getUrlParameter('state');
 
 var data = [];
 var table = d3.select('#container')
@@ -63,6 +64,7 @@ var table = d3.select('#container')
 
 $(document).ready(function(){
 	$("#product-filter").val(product_params);
+	$( "#state-filter" ).val( state_params);
 	$('#search').on("click", function() {
 			var $rows = $('.results-row');
 			var product = $('#product-filter').val();
