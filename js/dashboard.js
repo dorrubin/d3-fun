@@ -53,12 +53,10 @@ var labelArc = d3.svg.arc()
 
 //function to place labels based on their 
 var getAngle = function (d) {
-		console.log(d);
 		var angle = 180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90;
-		console.log(Math.abs(180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90));
 		if(Math.abs(angle) < 90) {
 			return angle;
-		} 
+		}
 		else {
 			return angle - 180;
 		}
@@ -66,12 +64,11 @@ var getAngle = function (d) {
 };
 
 var getAnchor = function(d) {
-	console.log(d)
-	if(d.endAngle <= Math.PI) {
-		return "start";
+	if((d.endAngle + d.startAngle)/2 >= Math.PI) {
+		return "end";
 	} 
 	else {
-		return "end"
+		return "start"
 	}
 }
 var pos = d3.svg.arc().innerRadius(radius).outerRadius(radius); //
@@ -83,7 +80,7 @@ var pie = d3.layout.pie()
 // svg canvas --- tried responsiveness but didnt quite work
 var pieChart = d3.select("#pie-chart").append("svg")
 		.attr("width", width)
-		.attr("height", width)
+		.attr("height", 800)
 		.append("g")
 		.attr("transform", "translate(" + width / 2 + "," + 380 +  ")"); //hardcoded to allow the labels to fit
 
@@ -98,7 +95,7 @@ var tbody = table.append('tbody');
 
 
 // loading in complaints
-var reload = function(productFilter, stateFilter) {
+var reload = function(productFilter, stateFilter, startTimeFilter, endTimeFilter) {
 	d3.csv("data/mini-complaints.csv", function(csv_complaint) {
 		if(productFilter)
 		{
@@ -112,6 +109,18 @@ var reload = function(productFilter, stateFilter) {
 				return d.State == stateFilter;
 			});
 		}
+		if(startTimeFilter)
+		{
+			csv_complaint = csv_complaint.filter(function(d) {
+				return moment(new Date(d["date_received"])).isSameOrAfter(moment(new Date(startTimeFilter)));
+			});
+		}
+		if(endTimeFilter)
+		{
+			csv_complaint = csv_complaint.filter(function(d) {
+				return moment(new Date(d["date_received"])).isSameOrBefore(moment(new Date(endTimeFilter)));
+			});
+		}		
 		data_table = csv_complaint;
 		data_state = d3.nest()
 			.key(function(d) {return d.State;})
@@ -246,8 +255,7 @@ reload();
 		var state = d3.select("#state-filter").property("value");
 		var startTime = d3.select("#start-time").property("value");
 		var endTime = d3.select("#end-time").property("value");
-		// something = product;
 		console.log(product + " " + state);
 		// barGraph.remove();
-		reload(product, state);
+		reload(product, state, startTime, endTime);
 	}  //end filter
