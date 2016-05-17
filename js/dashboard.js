@@ -8,16 +8,17 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 
+var click_counter = 0;
 
 var comparison = function (a, b) {
-  if (a.values < b.values) {
-    return 1;
-  }
-  if (a.values > b.values) {
-    return -1;
-  }
-  // a must be equal to b
-  return 0;
+	if (a.values < b.values) {
+		return 1;
+	}
+	if (a.values > b.values) {
+		return -1;
+	}
+	// a must be equal to b
+	return 0;
 };
 
 // ----- BAR ----- 
@@ -105,6 +106,33 @@ var thead = table.append('thead').append('tr').classed("header", true);
 
 var tbody = table.append('tbody');
 
+var reorder = function() {
+	click_counter++;
+	var sortBy = this.textContent;
+	data_table.sort(function(a,b) {
+	if(click_counter%2 === 0) {
+		if (a[sortBy] < b[sortBy]) {
+			return 1;
+		}
+		if (a[sortBy] > b[sortBy]) {
+			return -1;
+		}
+		// a must be equal to b
+		return 0;		
+	}
+	else {
+		if (a[sortBy] > b[sortBy]) {
+			return 1;
+		}
+		if (a[sortBy] < b[sortBy]) {
+			return -1;
+		}
+		// a must be equal to b
+		return 0;				
+	}
+	})
+	redraw();
+};
 
 // loading in complaints
 var reload = function(productFilter, stateFilter, startTimeFilter, endTimeFilter) {
@@ -241,6 +269,7 @@ var redraw = function() {
 			.data(d3.map(data_table[0]).keys().slice(0,9))
 			.enter()
 			.append("th")
+			.on("click", reorder)
 			.text(function(d) { return d; });
 
 		var rows = tbody.selectAll("tr")
@@ -269,7 +298,7 @@ reload();
 		var state = d3.select("#state-filter").property("value");
 		var startTime = d3.select("#start-time").property("value");
 		var endTime = d3.select("#end-time").property("value");
-		console.log(product + " " + state);
+		// console.log(product + " " + state);
 		// barGraph.remove();
 		reload(product, state, startTime, endTime);
 	}  //end filter
