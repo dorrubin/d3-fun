@@ -3,6 +3,7 @@ var something;
 // ----- TEMPLATE -----
 var data_state = [];
 var data_product = [];
+var data_table = [];
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
@@ -64,7 +65,6 @@ var getAngle = function (d) {
 		return (180 / Math.PI * (d.startAngle + d.endAngle) / 2 - 90);
 };
 
-
 var getAnchor = function(d) {
 	console.log(d)
 	if(d.endAngle <= Math.PI) {
@@ -87,8 +87,16 @@ var pieChart = d3.select("#pie-chart").append("svg")
 		.append("g")
 		.attr("transform", "translate(" + width / 2 + "," + 380 +  ")"); //hardcoded to allow the labels to fit
 
+// ----- TABLE -----
+var table = d3.select('#full-table')
+	.append('table')
+	.classed('table', true);
 
-		
+var thead = table.append('thead').append('tr').classed("header", true);
+
+var tbody = table.append('tbody');
+
+
 // loading in complaints
 var reload = function(productFilter, stateFilter) {
 	d3.csv("data/mini-complaints.csv", function(csv_complaint) {
@@ -103,7 +111,8 @@ var reload = function(productFilter, stateFilter) {
 			csv_complaint = csv_complaint.filter(function(d) {
 				return d.State == stateFilter;
 			});
-		}		
+		}
+		data_table = csv_complaint;
 		data_state = d3.nest()
 			.key(function(d) {return d.State;})
 			.rollup(function(leaves){
@@ -203,6 +212,29 @@ var redraw = function() {
 			})
 			// .attr("visibility", "hidden")
 			.text(function(d){ return d.data.key}); //text-anchor so that svg text begins at point radius + 10
+
+	// TABLE
+		thead.selectAll("th")
+			.data(d3.map(data_table[0]).keys().slice(0,9))
+			.enter()
+			.append("th")
+			.text(function(d) { return d; });
+
+		var rows = tbody.selectAll("tr")
+			.data(data_table);
+
+		rows.enter().append("tr");
+		rows.classed("results-row", true);
+		rows.exit().remove();
+
+		var cells = rows.selectAll("td")
+			.data(function(row) { return d3.map(row).values().slice(0,9); });
+		
+		cells.enter().append("td");
+		cells.text(function(d) {
+
+			return d;
+		});
 };
 
 reload();
