@@ -5,7 +5,7 @@ var data_state = [];
 var data_product = [];
 var data_table = [];
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-		width = 960 - margin.left - margin.right,
+		width = 480 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 
 var click_counter = 0;
@@ -92,10 +92,10 @@ var pie = d3.layout.pie()
 		.value(function(d) { return d.values; });
 // svg canvas --- tried responsiveness but didnt quite work
 var pieChart = d3.select("#pie-chart").append("svg")
-		.attr("width", width)
-		.attr("height", 800)
+		.attr("width", width + 120)
+		.attr("height", 700)
 		.append("g")
-		.attr("transform", "translate(" + width / 2 + "," + 380 +  ")"); //hardcoded to allow the labels to fit
+		.attr("transform", "translate(" + 310 + "," + 380 +  ")"); //hardcoded to allow the labels to fit
 
 // ----- TABLE -----
 var table = d3.select('#full-table')
