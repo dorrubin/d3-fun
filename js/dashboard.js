@@ -95,7 +95,7 @@ var pieChart = d3.select("#pie-chart").append("svg")
 		.attr("width", width + 120)
 		.attr("height", 700)
 		.append("g")
-		.attr("transform", "translate(" + 310 + "," + 380 +  ")"); //hardcoded to allow the labels to fit
+		.attr("transform", "translate(" + 310 + "," + 365 +  ")"); //hardcoded to allow the labels to fit
 
 // ----- TABLE -----
 var table = d3.select('#full-table')
