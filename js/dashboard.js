@@ -214,7 +214,8 @@ var redraw = function() {
 					})
 				.on("click", function(d) {
 						console.log("click: " + d.key);
-						window.location.href = "./index.html?state=" + d.key;
+						d3.select("#state-filter").property("value", d.key);
+						filter();
 					})
 				.attr("x", function(d) { return x(d.key); })
 				.attr("width", x.rangeBand())
@@ -234,7 +235,8 @@ var redraw = function() {
 			.style("fill", function(d) { return color(d.data.key); })
 			.on("click", function(d) {
 					console.log("click: " + d.data.key);
-					window.location.href = "./index.html?product=" + d.data.key; //click off to table
+					d3.select("#product-filter").attr("value", d.data.key);
+					filter();
 			})
 			.on("mouseenter", function(d) {
 					console.log(d.data.key);
@@ -246,7 +248,6 @@ var redraw = function() {
 						.attr("d", arcOver); //transition to arcOver path
 			})
 			.on("mouseleave", function(d) {
-					console.log("exit");
 					d3.select(this).transition()
 						.attr("d", arc); //transition back to arc original path shape
 			});
