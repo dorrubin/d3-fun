@@ -7,7 +7,19 @@ var data_table = [];
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
- 
+
+
+var comparison = function (a, b) {
+  if (a.values < b.values) {
+    return 1;
+  }
+  if (a.values > b.values) {
+    return -1;
+  }
+  // a must be equal to b
+  return 0;
+};
+
 // ----- BAR ----- 
 var numberFormat = d3.format("d");
 //rangeRoundBands to include padding
@@ -127,14 +139,16 @@ var reload = function(productFilter, stateFilter, startTimeFilter, endTimeFilter
 			.rollup(function(leaves){
 				return leaves.length;
 			})
-			.entries(csv_complaint);
+			.entries(csv_complaint)
+			.sort(comparison);
 			// data_state = complaint_data;
 		data_product = d3.nest()
 			.key(function(d) {return d.Product;})
 			.rollup(function(leaves){
 				return leaves.length;
 			})
-			.entries(csv_complaint);
+			.entries(csv_complaint)
+			.sort(comparison);
 			redraw();
 	});
 };
