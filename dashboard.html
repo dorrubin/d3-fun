@@ -20,23 +20,25 @@
 			<a href="./dashboard.html">Dashboard</a>
 		</div>
 	</div>
+	<!--End header -->
+	<!--Start filter -->
 	<div class="eleven columns" id="container">
-		<h3 id="page-title">Table</h3>
+		<h3 id="page-title">Dashboard</h3>
 		<div class="filter">
 			<form>
 				<div class="row">
 					<div class="three columns">
 						<label for="date-filter">Start Date</label>
-						<input class="u-full-width" type="text" placeholder="8/30/2013" id="start-time">
+						<input class="u-full-width" type="text" value="8/30/2013" id="start-time">
 					</div>
 					<div class="three columns">
 						<label for="date-filter">End Date</label>
-						<input class="u-full-width" type="text" placeholder="8/30/2014" id="end-time">
+						<input class="u-full-width" type="text" value="8/30/2014" id="end-time">
 					</div>
 					<div class="three columns">
 						<label for="product-filter">Product</label>
 						<input class="u-full-width" type="text" placeholder="Student loan" id="product-filter">
-					</div>
+					</div>			    
 					<div class="three columns">
 						<label for="state-filter">State</label>
 						<select class="u-full-width" id="state-filter">
@@ -98,10 +100,10 @@
 				</div>
 			</form>
 		</div> <!--End filter -->
-	</div>
+	</div> <!--End container -->
 </body>
 	<script type="text/javascript" src="js/d3.js"></script>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/moment.js"></script>
-	<script type="text/javascript" src="js/table.js"></script>
+	<script type="text/javascript" src="js/dashboard.js"></script>
 </html>
